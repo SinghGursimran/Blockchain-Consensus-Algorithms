@@ -32,6 +32,11 @@ if __name__ == '__main__':
 	pickle.dump([proof_of_work.Block(datetime.datetime.now(), [], "0")], save_ledger)
 	save_ledger.close()
 
+	#Initializing pt with empty file. 
+	save_pt = open('pt', 'wb')
+	pickle.dump([], save_pt)
+	save_pt.close()
+
 	lending_system = proof_of_work.BlockChain() #Intializing the blockchain
 
 	#Sender for the node
@@ -43,10 +48,21 @@ if __name__ == '__main__':
 
 	Thread(target=reactor.run, args=(False,)).start()
 
-	lending_system.createTransaction(proof_of_work.Transaction(name, "ugester502", 100))
-	lending_system.createTransaction(proof_of_work.Transaction(name, "ugester503", 50))
-	block = lending_system.minePendingTransactions(name)
+	while(1):
+		op = input("Enter operation number\n1 Send \n2 MineBlock\n")
+		if(int(op) == 1):
+			to = input("Enter the name of destination node:")
+			amount = input("Enter Amount:")
+			lending_system.createTransaction(proof_of_work.Transaction(name, to, int(amount)))
+			pt, block = proof_of_work.BlockChain.pendingTransactions, None
+		elif(op == 2):
+			block = lending_system.minePendingTransactions(name)
+			pt = None
+		else: 
+			print("Wrong Opaeration, Enter Again\n")
+			continue
+		for connect in connections: connect.addCallback(connection.gotProtocol, block, pt)
+	
 
-	for connect in connections:
-		connect.addCallback(connection.gotProtocol, block)
+	
 

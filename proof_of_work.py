@@ -41,22 +41,26 @@ class Block(object):
 class BlockChain(object):
 
 	chain = None
+	pendingTransactions = []
 
 	def __init__(self):
 		self.difficulty = 4
-		self.pendingTransactions = []
 		self.miningReward = 100
 
 		load_file = open('ledger', 'rb')
 		BlockChain.chain = pickle.load(load_file) #Initializing the block chain
 		load_file.close()
 
+		load_pt = open('pt', 'rb')
+		BlockChain.pendingTransactions = pickle.load(load_pt) #Initializing the block chain
+		load_pt.close()
+
 	def getLatestBlock(self):
 		return BlockChain.chain[-1]
 
 	def minePendingTransactions(self, miningRewardAdress):
 		
-		newBlock = Block(datetime.datetime.now(), self.pendingTransactions)
+		newBlock = Block(datetime.datetime.now(), BlockChain.pendingTransactions)
 		newBlock.previousHash = self.getLatestBlock().hash
 		# you can check if transactions are valid here
 		print("mining block...")
@@ -69,11 +73,11 @@ class BlockChain(object):
 		pickle.dump(BlockChain.chain, save_ledger)
 		save_ledger.close()
 
-		self.pendingTransactions = [Transaction(None, miningRewardAdress, self.miningReward)]
+		BlockChain.pendingTransactions = [Transaction(None, miningRewardAdress, self.miningReward)]
 		return newBlock
 
 	def createTransaction(self, transaction):
-		self.pendingTransactions.append(transaction)
+		BlockChain.pendingTransactions.append(transaction)
 
 	def getBalanceOfAdress(self, adress):
 		balance = 0
