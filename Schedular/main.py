@@ -47,7 +47,7 @@ if __name__ == '__main__':
 	#Mine pending transactions at ugster504:5999
 	host, port = "ugster504", 5999
 	operation = Operation(2)
-	node.broadcast(host, 2, port, operation, type = "mine")
+	node.broadcast(host, port, operation, type = "mine")
 	
 	node.stop()
 
