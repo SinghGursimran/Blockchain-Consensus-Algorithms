@@ -10,7 +10,9 @@ import socket
 import os
 import json
 
-d = {}
+class Counter():
+
+    d = {}
 
 class Operation():
     def __init__(self, stage, to_host = "", to_port = 0, amount = 0):
@@ -39,8 +41,8 @@ class Peer(Node):
             print("unknown data received")
             return
 
-        d[data["stage"]] = d.get(data["stage"],0) + 1
-        print(d[data["stage"]])
+        Counter.d[data["stage"]] = Counter.d.get(data["stage"],0) + 1
+        print(Counter.d[data["stage"]])
 
     def outbound_node_connected(self, node):
         print(self.id, " - outbound_node_connected: " + node.id)
