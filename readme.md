@@ -24,5 +24,5 @@ Step 3:
 for node in nodes:  
 		connect_with_all(node, n) #Connecting nodes  
   
-Step 3:  
+Step 4:  
 On Schedular: exec(open('script.py').read()) #Starting script  
