@@ -1,5 +1,5 @@
 """
-Created on Tue Dec  5 12:19:52 2020
+Created on Tue Dec 5 12:19:52 2020
 
 @author: Gursimran Singh, Govind Sharma
 """
@@ -44,7 +44,7 @@ class BlockChain(object):
 	def __init__(self, ledger_path):
 		self.ledger_path = ledger_path
 		self.chain = None
-		self.difficulty = 4
+		self.difficulty = 5
 		self.pendingTransactions = []
 		self.miningReward = 100
 
