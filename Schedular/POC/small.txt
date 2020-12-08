@@ -1,0 +1,11 @@
+send ugster503 5990 ugster504 5991 100
+send ugster502 5994 ugster505 5991 65
+send ugster504 5990 ugster504 5991 90
+send ugster505 5993 ugster504 5991 70
+mine
+send ugster503 5994 ugster504 5991 50
+send ugster502 5991 ugster505 5990 145
+mine
+send ugster504 5990 ugster502 5991 90
+send ugster505 5993 ugster503 5994 70
+mine
