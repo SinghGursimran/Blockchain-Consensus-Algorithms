@@ -1,7 +1,7 @@
-Run the following commands on all systems:
-Step 1: 
-kill -9 $(lsof -t -i tcp:5990)
-kill -9 $(lsof -t -i tcp:5991)
+Run the following commands on all systems:  
+Step 1:   
+kill -9 $(lsof -t -i tcp:5990)  
+kill -9 $(lsof -t -i tcp:5991)  
 kill -9 $(lsof -t -i tcp:5992)
 kill -9 $(lsof -t -i tcp:5993)
 kill -9 $(lsof -t -i tcp:5994)
