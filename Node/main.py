@@ -9,18 +9,19 @@ from proof_of_work import *
 
 network = {
 		'ugster501': '129.97.173.79', #This is the coordinator node. 
+		'ugster502': '129.97.173.80',
 		'ugster503': '129.97.173.81',
-		'ugster504': '129.97.173.82'
+		'ugster504': '129.97.173.82',
+		'ugster505': '129.97.173.84'
 	}
 
-ports = [5998, 5999]
-
+ports = list(range(5990, 6000))
 hostname = socket.getfqdn()
 
-def create_local_nodes():
+def create_local_nodes(n):
 	nodes = []
 	host = network[hostname]
-	for port in ports:
+	for port in ports[:n]:
 		node = Peer(host, port)
 		node.start()
 		nodes.append(node)
@@ -30,12 +31,12 @@ def stop_local_nodes(nodes):
 	for node in nodes:
 		node.stop()
 
-def connect_with_all(node):
+def connect_with_all(node, n):
 	for name, host in network.items():
 		if(name == "ugster501"):  #Scheduler node
 			node.connect_with_node(host, 5998)
 			continue
-		for port in ports:
+		for port in ports[:n]:
 			if node.host == host and node.port == port:
 				print ("Skipping", name, port)
 				continue
@@ -46,10 +47,11 @@ def connect_with_all(node):
 				print ('Could not connect {node.id} with {host}:{port}')
 
 if __name__ == '__main__':
-	nodes = create_local_nodes()
+	n = 5
+	nodes = create_local_nodes(n)
 	# somehow wait till other local nodes are up
 	for node in nodes:
-		connect_with_all(node)
+		connect_with_all(node, n)
 
 	# the following two things are to be read from a schedule file
 	# create transactions at random intervals and broadcast

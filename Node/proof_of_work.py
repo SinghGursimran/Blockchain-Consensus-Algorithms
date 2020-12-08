@@ -12,9 +12,12 @@ import json
 class Transaction(object):
 
 	def __init__(self, fromAddress, toAddress, amount):
-		self.fromAddress = fromAddress
+		self.fromAddress = fromAddress if(fromAddress != None) else " "
 		self.toAddress = toAddress
 		self.amount = amount
+
+	def __str__(self):
+		return self.fromAddress + " " + self.toAddress + " " + str(self.amount)
 
 class Block(object):
 
@@ -27,7 +30,7 @@ class Block(object):
 		else: self.hash = hash
 
 	def calculateHash(self):
-		info = str(self.timestamp) + str(self.transactions) + str(self.previousHash) + str(self.nonce)
+		info = str(self.timestamp) + str([str(transaction) for transaction in self.transactions]) + str(self.previousHash) + str(self.nonce)
 		return hashlib.sha256(info.encode('utf-8')).hexdigest()
 
 	# Proof of work algorithm

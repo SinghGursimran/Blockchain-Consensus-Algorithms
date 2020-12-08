@@ -11,7 +11,6 @@ import os
 import json
 
 class Counter():
-
     d = {}
 
 class Operation():
@@ -34,6 +33,10 @@ class Peer(Node):
         for node in self.nodes_outbound:
             if(f'{from_host}:{from_port}' == node.id): self.send_to_node(node, payload)
 
+    def update_counter(self, x):
+        Counter.d[x] = Counter.d.get(x,0) + 1
+        if(Counter.d[x] % 5 == 0): print(Counter.d[x])
+
     def node_message(self, node, data):
         print(self.id, " - node_message from " + node.id + ": " + str(data))
 
@@ -41,8 +44,7 @@ class Peer(Node):
             print("unknown data received")
             return
 
-        Counter.d[data["stage"]] = Counter.d.get(data["stage"],0) + 1
-        print(Counter.d[data["stage"]])
+        self.update_counter(data["stage"])
 
     def outbound_node_connected(self, node):
         print(self.id, " - outbound_node_connected: " + node.id)

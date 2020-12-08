@@ -23,9 +23,6 @@ class Peer(Node):
     def __init__(self, host, port):
         super(Peer, self).__init__(host, port, None)
         # add host and port to id as well
-        #self.id = str(uuid4())
-        #hn = f'___{socket.getfqdn()}:{port}'
-        #self.id = self.id[:-len(hn)] + hn
         self.id = f'{socket.getfqdn()}:{port}'
         self.ledger_path = f'{self.id}.ledger'
 
