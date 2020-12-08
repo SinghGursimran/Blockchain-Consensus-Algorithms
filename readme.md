@@ -15,14 +15,11 @@ python3
   
 Step 2:  
 from main import *  
-n = 5 #Select the number of nodes to run on single system  
-   
-On Nodes: nodes = create_local_nodes(n) #Creating n nodes on each system  
-On Schedular: create_local_nodes() #Create single node for scheduling  
+n = 5  
+nodes = create_local_nodes(n)
   
 Step 3:  
-for node in nodes:  
-		connect_with_all(node, n) #Connecting nodes  
+for node in nodes: connect_with_all(node, n)   
   
 Step 4:  
 On Schedular: exec(open('script.py').read()) #Starting script  
